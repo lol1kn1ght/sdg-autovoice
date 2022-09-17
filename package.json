@@ -1,0 +1,46 @@
+{
+  "name": "sdg-autovoice",
+  "version": "1.0.0",
+  "description": "Бот для модерации дискорд сервера EZ",
+  "main": "index.js",
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "versionings": "^0.1.0-alfa.4"
+  },
+  "scripts": {
+    "start": "cd ./dist && node --trace-uncaught ./Main.js",
+    "dev_build": "rimraf ./dist && swc ./src -d ./dist --copy-files",
+    "production_build": "rimraf ./dist && swc -C minify=true ./src -d ./dist --copy-files",
+    "check_errs": "tsc --project tsconfig.json --noEmit",
+    "launch_nodemon": "nodemon --watch \"./src/**\" --ext \"ts,json,.env\" --exec \"npm run check_errs && npm run dev_build && npm run start\"",
+    "dev": "npm run launch_nodemon",
+    "production": "npm run check_errs && npm run production_build && npm run start listener=true"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^1.1.0",
+    "@swc/cli": "^0.1.55",
+    "@swc/core": "^1.2.146",
+    "@swc/helpers": "^0.3.6",
+    "child_process": "^1.0.2",
+    "chokidar": "^3.5.3",
+    "colors": "^1.4.0",
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.2",
+    "fs": "*",
+    "mongoose": "^6.6.0",
+    "parse-duration": "^1.0.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.5"
+  },
+  "author": "loli_knight",
+  "license": "ISC",
+  "prettier": {
+    "singleQuote": true
+  },
+  "imports": {
+    "#config": "./dist/config/config.json",
+    "#dev_config": "./dist/config/dev_config.json",
+    "#CommandsLoader": "./dist/CommandsLoader.js",
+    "types": "./dist/types*"
+  }
+}
