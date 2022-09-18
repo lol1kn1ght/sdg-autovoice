@@ -1,6 +1,6 @@
 {
   "name": "sdg-autovoice",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Бот для модерации дискорд сервера EZ",
   "main": "index.js",
   "devDependencies": {
