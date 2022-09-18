@@ -6,7 +6,7 @@ export class Command implements CommandType {
       name: 'test',
       description: 'test command',
     },
-    dev_settings: {},
+
     settings: {},
   };
 

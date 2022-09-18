@@ -21,7 +21,9 @@
       "#config": ["./config/config.json"],
       "#dev_config": ["./config/dev_config.json"],
       "types": ["types.ts"],
-      "#CommandsLoader": ["./CommandsLoader"],
+      "#CommandsLoader": ["./loaders/CommandsLoader"],
+      "#EventsLoader": ["./loaders/EventsLoader.js"],
+
       "@src/*": ["./*"]
     }
   },

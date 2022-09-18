@@ -1,8 +1,22 @@
 import 'colors';
-import { REST, Routes } from 'discord.js';
+import {
+  IntentsBitField,
+  Client,
+  REST,
+  Routes,
+  GatewayIntentBits,
+} from 'discord.js';
 import dotenv from 'dotenv';
 import { readdirSync } from 'fs';
 import './prototypes';
+
+const intents_flags = IntentsBitField.Flags;
+
+export const client = new Client({
+  intents: Object.values(intents_flags).filter((intent) =>
+    Number(intent)
+  ) as number[],
+});
 
 import dev_config from '#dev_config';
 import prod_config from '#config';
@@ -25,6 +39,7 @@ console.log();
 export const config = process.env.DEV ? dev_config : prod_config;
 
 class BotBuilder {
+  client = client;
   constructor() {
     this._start();
   }
