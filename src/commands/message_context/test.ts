@@ -1,4 +1,3 @@
-import { commandsLoader } from '#CommandsLoader';
 import { CommandType, command_type } from 'types';
 
 export class Command implements CommandType {
@@ -23,9 +22,3 @@ export class Command implements CommandType {
     console.log('Aboba');
   }
 }
-
-const command = new Command();
-
-commandsLoader.load(command.settings, () => {
-  command.execute();
-});

@@ -1,15 +1,13 @@
-import { CommandType, command_type } from 'types';
+import { Slash } from '/decorators';
+import { modules } from '#config';
 
-export class Command implements CommandType {
-  settings: command_type = {
-    data: {
-      name: 'test',
-      description: 'test command',
-    },
+console.log(modules);
 
-    settings: {},
-  };
-
+@Slash({
+  name: 'Test',
+  description: 'Test Command',
+})
+export class Command {
   async execute() {}
 
   constructor() {

@@ -40,8 +40,7 @@
   "imports": {
     "#config": "./dist/config/config.json",
     "#dev_config": "./dist/config/dev_config.json",
-    "#CommandsLoader": "./dist/loaders/CommandsLoader.js",
-    "#EventsLoader": "./dist/loaders/EventsLoader.js",
-    "types": "./dist/types*"
+    "types": "./dist/types*",
+    "@/decorators": "./dist/decorators/index.js"
   }
 }
