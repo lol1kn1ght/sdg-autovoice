@@ -1,43 +1,65 @@
-import { LocalizationMap, ToAPIApplicationCommandOptions } from 'discord.js';
+import { SlashDecoratorArgsType, SlashLoaderCommandType } from '#types';
+import { Command } from '@/commands/slash/test';
+import { SlashLoader } from '@/loaders';
 
-type DataType = {
-  readonly name: string;
-  /**
-   * The localized names for this command
-   */
-  readonly name_localizations?: LocalizationMap;
-  /**
-   * The description of this slash command
-   */
-  readonly description: string;
-  /**
-   * The localized descriptions for this command
-   */
-  readonly description_localizations?: LocalizationMap;
-  /**
-   * The options of this slash command
-   */
-  readonly options?: ToAPIApplicationCommandOptions[];
-  /**
-   * Whether the command is enabled by default when the app is added to a guild
-   *
-   * @deprecated This property is deprecated and will be removed in the future.
-   * You should use {@link (SlashCommandBuilder:class).setDefaultMemberPermissions} or {@link (SlashCommandBuilder:class).setDMPermission} instead.
-   */
-  readonly default_permission?: boolean | undefined;
-  /**
-   * Set of permissions represented as a bit set for the command
-   */
-  readonly default_member_permissions?: Permissions | null | undefined;
-  /**
-   * Indicates whether the command is available in DMs with the application, only for globally-scoped commands.
-   * By default, commands are visible.
-   */
-  readonly dm_permission?: boolean | undefined;
-};
+// type SlashDecoratorDataType = {
+//   payload?: {
+//     /** @description Название команды (ТОЛЬКО LOWERCASE)*/
+//     name: string;
 
-export function Slash(data: DataType) {
-  return function (constructor: Function) {
-    console.log(constructor());
+//     /** @description Перевод названия на выбранную локализацию */
+//     name_localizations?: LocalizationMap;
+
+//     /** @description Описание для команды */
+//     description: string;
+
+//     /** @description Перевод описания на выбранную локализацию */
+//     description_localizations?: LocalizationMap;
+
+//     /** @description Устанавливает права доступа для команды */
+//     default_member_permissions?: PermissionsString;
+
+//     /** @description Указывает можно ли использовать команду в ЛС */
+//     dm_permission?: boolean;
+
+//     options: {
+//       /** @description Название опции (ТОЛЬКО LOWERCASE) */
+//       name: string;
+
+//       /** @description Описание опции */
+//       description: string;
+
+//       /**
+//        * @description Тип опции
+//        * @value 1 - SUB_COMMAND
+//        * @value 2 - SUB_COMMAND_GROUP
+//        * @value 3 - СТРОКА
+//        * @value 4 - ЧИСЛО
+//        * @value 5 - БУЛЕВОЕ
+//        * @value 6 - ПОЛЬЗОВАТЕЛЬ
+//        * @value 7 - КАНАЛ
+//        * @value 8 - РОЛЬ
+//        * @value 9 - MENTIONABLE
+//        * @value 10 - ЧИСЛО
+//        * @value 11 - ВЛОЖЕНИЕ
+//        */
+//       type: 1 | 3 | 2 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+
+//       choices?: {
+//         name: string;
+//         value: string | number;
+//       }[];
+//     }[];
+//   };
+// };
+
+export function Slash(data: SlashDecoratorArgsType) {
+  return function <T extends { new (...args: any[]): {} }>(Command: T) {
+    const loader_args: SlashLoaderCommandType = {
+      command: Command,
+      payload: data,
+    };
+
+    SlashLoader.load(loader_args);
   };
 }

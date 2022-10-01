@@ -1,21 +1,28 @@
-import {
-  RESTPostAPIApplicationCommandsJSONBody,
-  PermissionsString,
-  Events,
-  ClientEvents,
-} from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 
-export type command_settings = Partial<{
-  permissions: Partial<{
-    permissions: PermissionsString[];
-    allowed_roles: string[];
-  }>;
-}>;
+export type SlashDecoratorDataType = SlashCommandBuilder;
 
-export type command_type = {
-  dev_settings?: command_settings;
-  settings: command_settings;
-  data: RESTPostAPIApplicationCommandsJSONBody;
+export type SlashDecoratorPermissionsType = {};
+
+export type SlashDecoratorArgsType = {
+  data: SlashDecoratorDataType;
+  permissions?: SlashDecoratorPermissionsType;
+  dev_permissions?: SlashDecoratorPermissionsType;
+};
+
+export type DecoratorClass<T extends { new (...args: any[]): {} }> = T;
+
+interface SlashDecoratorPlate {
+  data?: SlashCommandBuilder;
+  dev_permissions?: SlashDecoratorPermissionsType | undefined;
+  permissions?: SlashDecoratorPermissionsType | undefined;
+
+  new (...args: any[]): {};
+}
+
+export type SlashLoaderCommandType = {
+  command: DecoratorClass<SlashDecoratorPlate>;
+  payload: SlashDecoratorArgsType;
 };
 
 export type event_type = {
@@ -87,9 +94,3 @@ export type event_type = {
     | 'warn'
     | 'webhookUpdate';
 };
-
-export abstract class CommandType {
-  abstract settings: command_type;
-
-  abstract execute(): Promise<void>;
-}

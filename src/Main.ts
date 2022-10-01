@@ -19,7 +19,7 @@ export const client = new Client({
 });
 
 import dev_config from '#dev_config';
-import prod_config from '#config';
+import prod_config from './config/config';
 
 console.log('Setting up env variables');
 const envOutput = dotenv.config({

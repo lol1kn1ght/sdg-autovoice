@@ -1,13 +1,18 @@
-import { command_type } from 'types';
+import { SlashDecoratorArgsType, SlashLoaderCommandType } from '#types';
 
 type commands_list_type = {
-  [k: string]: command_type;
+  [k: string]: SlashLoaderCommandType;
 };
 
-export class SlashLoader {
+class SlashBuilder {
   private _commands_list: commands_list_type = {};
 
-  load(command: command_type) {
-    this._commands_list[command.data.name] = command;
+  load(SlashDecorator: SlashLoaderCommandType) {
+    this._commands_list[SlashDecorator.payload.data.name] = {
+      ...SlashDecorator,
+    };
+    console.log(this._commands_list);
   }
 }
+
+export const SlashLoader = new SlashBuilder();

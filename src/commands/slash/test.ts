@@ -1,17 +1,16 @@
-import { Slash } from '/decorators';
-import { modules } from '#config';
-
-console.log(modules);
+import { Slash } from '@/decorators';
+import { SlashCommandBuilder } from 'discord.js';
 
 @Slash({
-  name: 'Test',
-  description: 'Test Command',
+  data: new SlashCommandBuilder()
+    .setName('test-command')
+    .setDescription('test command description'),
 })
 export class Command {
   async execute() {}
 
   constructor() {
-    console.log('Constructed');
+    console.log('ФАЙЛ СОБРАЛСЯ');
   }
 
   async aboba() {}
