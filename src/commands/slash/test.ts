@@ -1,17 +1,32 @@
 import { Slash } from '@/decorators';
-import { SlashCommandBuilder } from 'discord.js';
+
+class TestBuilder {
+  constructor() {
+    console.log('TestBuilder Constructed!');
+  }
+}
 
 @Slash({
-  data: new SlashCommandBuilder()
-    .setName('test-command')
-    .setDescription('test command description'),
+  data: {
+    name: 'give-money',
+    description: 'Give money to somebody',
+    options: [
+      {
+        name: 'amount',
+        description: 'amount of cash',
+        type: 3,
+      },
+    ],
+  },
 })
-export class Command {
-  async execute() {}
-
+class Command {
   constructor() {
-    console.log('ФАЙЛ СОБРАЛСЯ');
+    this.execute();
   }
 
-  async aboba() {}
+  execute() {
+    console.log('Executed!');
+
+    new TestBuilder();
+  }
 }

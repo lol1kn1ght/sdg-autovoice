@@ -1,6 +1,8 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-export type SlashDecoratorDataType = SlashCommandBuilder;
+const to_json = new SlashCommandBuilder().toJSON;
+
+export type SlashDecoratorDataType = ReturnType<typeof to_json>;
 
 export type SlashDecoratorPermissionsType = {};
 
@@ -10,14 +12,16 @@ export type SlashDecoratorArgsType = {
   dev_permissions?: SlashDecoratorPermissionsType;
 };
 
-export type DecoratorClass<T extends { new (...args: any[]): {} }> = T;
+export type DecoratorClass<
+  T extends { new (interaction: CommandInteraction): {} }
+> = T;
 
 interface SlashDecoratorPlate {
-  data?: SlashCommandBuilder;
+  data?: SlashDecoratorDataType;
   dev_permissions?: SlashDecoratorPermissionsType | undefined;
   permissions?: SlashDecoratorPermissionsType | undefined;
 
-  new (...args: any[]): {};
+  new (interaction: CommandInteraction): {};
 }
 
 export type SlashLoaderCommandType = {

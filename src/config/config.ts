@@ -4,4 +4,6 @@ export default {
     slash: true,
     user_context: true,
   },
+
+  guild_id: '674657975264346142',
 };

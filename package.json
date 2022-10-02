@@ -19,10 +19,10 @@
     "build:dev": "rimraf dist && npx babel src --extensions .ts --out-dir dist",
     "build:production": "rimraf dist && npx babel src --extensions .ts --out-dir dist --presets minify",
     "types": "tsc",
-    "start:dev": "npm run types && npm run build:dev && cd dist && node Main.js",
+    "start:dev": "npm run types && npm run build:dev && cd dist && node Main.js --dev",
     "start:production": "npm run types && npm run build:production && npm start",
     "start": "cd dist && node Main.js",
-    "dev": "nodemon --watch \"./src/**\" --ext \"ts,json\" --exec \"npm run start:dev\"",
+    "dev": "nodemon --watch \"./**\" --ignore \"./dist,./node_modules\" --ext \"ts,json,.env\" --exec \"npm run start:dev\"",
     "production": "npm run start:production"
   },
   "dependencies": {
