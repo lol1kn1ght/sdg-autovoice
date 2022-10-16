@@ -1,8 +1,18 @@
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
 
-const to_json = new SlashCommandBuilder().toJSON;
+export type GuildSettingsType = {
+  guild_id?: string;
+  commands_permissions?: {
+    [command_name: string]: {
+      allowed_roles?: string[];
+      restricted_roles?: string[];
+    };
+  };
+};
 
-export type SlashDecoratorDataType = ReturnType<typeof to_json>;
+const _to_json = new SlashCommandBuilder().toJSON;
+
+export type SlashDecoratorDataType = ReturnType<typeof _to_json>;
 
 export type SlashDecoratorPermissionsType = {};
 

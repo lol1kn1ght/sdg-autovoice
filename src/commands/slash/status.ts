@@ -1,3 +1,4 @@
+import { InteractionTemplate } from '@/config/templates';
 import { Slash } from '@/decorators';
 import {
   CommandInteraction,
@@ -12,12 +13,13 @@ import {
     .setDefaultMemberPermissions(PermissionFlagsBits.AddReactions)
     .toJSON(),
 })
-class Command {
+class Command extends InteractionTemplate {
   constructor(interaction: CommandInteraction) {
+    super(interaction);
     this.execute(interaction);
   }
 
   async execute(interaction: CommandInteraction) {
-    interaction.editReply("I'm alive!");
+    this.replyTrue("I'm alive!");
   }
 }

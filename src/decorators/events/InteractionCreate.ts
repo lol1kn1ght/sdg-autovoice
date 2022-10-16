@@ -3,7 +3,7 @@ import { client } from '@/Main';
 type settings_type = {
   once?: boolean;
 };
-/**@description Региструет класс как событие "interactionCreate" для бота */
+/** @description Register class as "interactionCreate" event for bot */
 export function InteractionCreate(seetings?: settings_type) {
   return function <T extends { new (...args: any[]): {} }>(Event: T) {
     if (seetings?.once)

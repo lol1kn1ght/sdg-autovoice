@@ -1,8 +1,10 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      TOKEN: string;
-      GLOBAL: string;
+      [k: string]: undefined;
+      TOKEN?: string;
+      GLOBAL?: string;
+      DB_CONNECTION_LINK?: string;
     }
   }
 }

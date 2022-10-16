@@ -1,27 +1,26 @@
 import 'colors';
 
-function curr_time() {
+function _curr_time() {
   const date = new Date();
   return `[${date.toLocaleDateString()} ${date.toLocaleTimeString()}] `;
 }
 
-const log = console.log;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _log = console.log;
+
+/** @description Mutation for success log. Adding time in the start of the string */
 console.log = function (...args: any[]) {
-  process.stdout.write(curr_time().white);
-  log(...args);
+  process.stdout.write(_curr_time().white);
+  _log(...args);
 };
 
-//  process.stdout.write(curr_time().white);
-//  log(...args);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/** @description Mutation for warn log. Adding yellow color for text and time in the start of the string */
 console.warn = function (...args: any[]) {
-  process.stdout.write(curr_time().yellow);
-  log(...args.map((arg) => (typeof arg === 'string' ? arg.yellow : arg)));
+  process.stdout.write(_curr_time().yellow);
+  _log(...args.map((arg) => (typeof arg === 'string' ? arg.yellow : arg)));
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/** @description Mutation for error log. Adding red color for the text and time in the start of the string */
 console.error = function (...args: any[]) {
-  process.stdout.write(curr_time().red);
-  log(...args.map((arg) => (typeof arg === 'string' ? arg.red : arg)));
+  process.stdout.write(_curr_time().red);
+  _log(...args.map((arg) => (typeof arg === 'string' ? arg.red : arg)));
 };

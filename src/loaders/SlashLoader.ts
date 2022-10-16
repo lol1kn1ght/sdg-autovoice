@@ -3,13 +3,16 @@ import { CommandInteraction } from 'discord.js';
 
 type mapped_type = SlashLoaderCommandType['payload']['data'];
 
+/** @description Slash commands loader */
 class SlashBuilder {
   private _commands_list: SlashLoaderCommandType[] = [];
 
+  /** @description Get array of Slash commands payloads data */
   get commands(): mapped_type[] {
     return this._commands_list.map((command) => command.payload.data);
   }
 
+  /** @description Get command payload data */
   get_command(name: string): mapped_type | undefined {
     return this.commands.filter(
       (command) => command.name.toLowerCase() === name.toLowerCase()

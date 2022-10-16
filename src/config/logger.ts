@@ -1,3 +1,4 @@
+import { handle_error } from '@/tools';
 import { readFileSync, writeFile, existsSync, mkdirSync } from 'fs';
 
 const { logger } = { logger: true };
@@ -15,11 +16,13 @@ export class Logger {
     setInterval(() => this._write_logs(), 15000);
   }
 
+  /** @description Write success logs to file */
   log(content: string) {
     if (logger) console.log(content.yellow);
     this._logs_query.push(this._curr_time() + content);
   }
 
+  /** @description Write error logs to file */
   error(content: string) {
     if (logger) console.error(content);
     const err_content = `\n${this._curr_time()} [ ERROR ]\n${this._curr_time()} ${content}\n${this._curr_time()} [ ERROR ]\n`;
@@ -27,6 +30,7 @@ export class Logger {
     this._errors_query.push(this._curr_time() + content);
   }
 
+  /** @description Write warning logs to file */
   warning(content: string) {
     if (logger) console.warn(content);
     const warning_content = `\n${this._curr_time()} [ WARNING ]\n${this._curr_time()} ${content}\n${this._curr_time()} [ WARNING ]\n`;
@@ -70,7 +74,7 @@ export class Logger {
 
         writeFile(`../data/${today_folder}/logs.txt`, line, (err) => {
           if (err) {
-            // F.handle_error(err, '[Logger] method _write_logs');
+            handle_error(err, '[Logger] method _write_logs');
           }
         });
       }
@@ -91,7 +95,7 @@ export class Logger {
 
         writeFile(`../data/${today_folder}/errors.txt`, line, (err) => {
           if (err) {
-            // F.handle_error(err, '[Logger] method _write_logs');
+            handle_error(err, '[Logger] method _write_logs');
           }
         });
       }
@@ -112,12 +116,12 @@ export class Logger {
 
         writeFile(`../data/${today_folder}/warnings.txt`, line, (err) => {
           if (err) {
-            // F.handle_error(err, '[Logger] method _write_logs');
+            handle_error(err, '[Logger] method _write_logs');
           }
         });
       }
     } catch (err) {
-      // F.handle_error(<Error>err, '[Logger] method _write_logs');
+      handle_error(<Error>err, '[Logger] method _write_logs');
     }
   }
 }

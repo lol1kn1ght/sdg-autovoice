@@ -1,14 +1,10 @@
 import 'colors';
-import {
-  IntentsBitField,
-  Client,
-  REST,
-  Routes,
-  GatewayIntentBits,
-} from 'discord.js';
+import { IntentsBitField, Client, REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
 import { readdirSync } from 'fs';
 import './prototypes';
+
+import { MongoClient as _MongoClient } from 'mongodb';
 
 const intents_flags = IntentsBitField.Flags;
 
@@ -48,6 +44,10 @@ console.log();
 
 export const config = DEV ? dev_config : prod_config;
 
+if (!process.env.DB_CONNECTION_LINK)
+  throw new Error("DB connection link isn't defined. Define one in .env file");
+export const MongoClient = new _MongoClient(process.env.DB_CONNECTION_LINK);
+
 class BotBuilder {
   client = client;
   constructor() {
@@ -56,6 +56,8 @@ class BotBuilder {
 
   private async _start() {
     console.log(`Starting Bot...`.green);
+    await this._load_mongoose();
+    console.log();
 
     await this._load_commands();
     console.log();
@@ -71,6 +73,22 @@ class BotBuilder {
     console.log();
 
     console.log(`Bot succesfully started!`.green);
+  }
+
+  async _load_mongoose() {
+    console.group();
+    console.log('Loading Mongoose');
+
+    const connection_link = process.env.DB_CONNECTION_LINK;
+
+    if (!connection_link)
+      throw new Error(
+        "DB connection link isn't defined. Define one in .env file"
+      );
+
+    await MongoClient.connect();
+    console.log('Mongoose successfuly loaded'.green);
+    console.groupEnd();
   }
 
   async _load_commands(): Promise<void> {
@@ -129,10 +147,12 @@ class BotBuilder {
     console.log('Pushing commands');
     if (client.user) {
       console.group();
+      if (!process.env.TOKEN)
+        throw new Error("Token isn't defined! Define token in .env file");
       const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
       const commands = SlashLoader.commands;
 
-      const GLOBAL = JSON.parse(process.env.GLOBAL);
+      const GLOBAL = JSON.parse(process.env.GLOBAL || DEV ? 'false' : 'true');
 
       if (GLOBAL) {
         console.log(`Pushing commands as GLOBAL`.green);
