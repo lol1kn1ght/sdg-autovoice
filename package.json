@@ -1,6 +1,6 @@
 {
   "name": "sdg-autovoice",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "SimpleDiscordGuildAutovoice Bot",
   "main": "dist/Main.js",
   "devDependencies": {
