@@ -1,7 +1,7 @@
 {
   "name": "sdg-autovoice",
   "version": "0.5.0",
-  "description": "Бот для модерации дискорд сервера EZ",
+  "description": "SimpleDiscordGuildAutovoice Bot",
   "main": "dist/Main.js",
   "devDependencies": {
     "@babel/cli": "^7.19.3",
