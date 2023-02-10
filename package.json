@@ -1,46 +1,45 @@
 {
   "name": "sdg-autovoice",
-  "version": "0.0.1",
-  "description": "Бот для модерации дискорд сервера EZ",
-  "main": "index.js",
+  "version": "0.5.1",
+  "description": "SimpleDiscordGuildAutovoice Bot",
+  "main": "dist/Main.js",
   "devDependencies": {
-    "nodemon": "^2.0.15",
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-proposal-decorators": "^7.19.3",
+    "@babel/preset-env": "^7.19.3",
+    "@babel/preset-typescript": "^7.18.6",
+    "babel-plugin-tsconfig-paths-module-resolver": "^1.0.3",
+    "babel-preset-minify": "^0.5.2",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.0-dev.20220925",
     "versionings": "^0.1.0-alfa.4"
   },
   "scripts": {
-    "start": "cd ./dist && node --trace-uncaught ./Main.js",
-    "dev_build": "rimraf ./dist && swc ./src -d ./dist --copy-files",
-    "production_build": "rimraf ./dist && swc -C minify=true ./src -d ./dist --copy-files",
-    "check_errs": "tsc --project tsconfig.json --noEmit",
-    "launch_nodemon": "nodemon --watch \"./src/**\" --ext \"ts,json,.env\" --exec \"npm run check_errs && npm run dev_build && npm run start\"",
-    "dev": "npm run launch_nodemon",
-    "production": "npm run check_errs && npm run production_build && npm run start listener=true"
+    "build:dev": "rimraf dist && npx babel src --extensions .ts --out-dir dist",
+    "build:production": "rimraf dist && npx babel src --extensions .ts --out-dir dist --presets minify",
+    "types": "tsc",
+    "start:dev": "npm run types && npm run build:dev && cd dist && node Main.js --dev",
+    "start:production": "npm run types && npm run build:production && npm start",
+    "start": "cd dist && node Main.js",
+    "dev": "nodemon --watch \"./**\" --ignore \"./dist,./node_modules\" --ext \"ts,json,.env\" --exec \"npm run start:dev\"",
+    "production": "npm run start:production"
   },
   "dependencies": {
     "@discordjs/rest": "^1.1.0",
-    "@swc/cli": "^0.1.55",
-    "@swc/core": "^1.2.146",
-    "@swc/helpers": "^0.3.6",
     "child_process": "^1.0.2",
     "chokidar": "^3.5.3",
     "colors": "^1.4.0",
     "discord.js": "^14.3.0",
     "dotenv": "^16.0.2",
     "fs": "*",
-    "mongoose": "^6.6.0",
+    "mongodb": "^4.10.0",
     "parse-duration": "^1.0.2",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.5.5"
+    "rimraf": "^3.0.2"
   },
   "author": "loli_knight",
   "license": "ISC",
   "prettier": {
     "singleQuote": true
-  },
-  "imports": {
-    "#config": "./dist/config/config.json",
-    "#dev_config": "./dist/config/dev_config.json",
-    "#CommandsLoader": "./dist/CommandsLoader.js",
-    "types": "./dist/types*"
   }
 }

@@ -1,18 +1,18 @@
 {
+  "$schema": "https://json.schemastore.org/swcrc",
   "jsc": {
     "parser": {
       "syntax": "typescript",
-      "dynamicImport": false,
-      "decorators": false,
-      "strict": true
+      "dynamicImport": true,
+      "decorators": true
     },
+    "target": "es2022",
+    "loose": false,
+    "externalHelpers": true,
     "transform": {
       "legacyDecorator": true,
       "decoratorMetadata": true
-    },
-    "target": "es2020",
-    "loose": false,
-    "externalHelpers": true
+    }
   },
   "module": {
     "type": "commonjs",
@@ -20,5 +20,6 @@
     "strictMode": true,
     "lazy": false,
     "noInterop": false
-  }
+  },
+  "minify": false
 }

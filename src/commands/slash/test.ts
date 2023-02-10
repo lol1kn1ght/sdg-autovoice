@@ -1,20 +1,32 @@
-import { CommandType, command_type } from 'types';
+import { Slash } from '@/decorators';
 
-export class Command implements CommandType {
-  settings: command_type = {
-    data: {
-      name: 'test',
-      description: 'test command',
-    },
-    dev_settings: {},
-    settings: {},
-  };
-
-  async execute() {}
-
+class TestBuilder {
   constructor() {
-    console.log('Constructed');
+    console.log('TestBuilder Constructed!');
+  }
+}
+
+@Slash({
+  data: {
+    name: 'give-money',
+    description: 'Give money to somebody',
+    options: [
+      {
+        name: 'amount',
+        description: 'amount of cash',
+        type: 3,
+      },
+    ],
+  },
+})
+class Command {
+  constructor() {
+    this.execute();
   }
 
-  async aboba() {}
+  execute() {
+    console.log('Executed!');
+
+    new TestBuilder();
+  }
 }
